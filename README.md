@@ -32,4 +32,4 @@ Or connect this GitHub repo in the Cloudflare dashboard (Workers & Pages → Cre
 
 1. In Cloudflare: **Add a domain** → `popijn.nl` (Free plan).
 2. In TransIP, set the nameservers for `popijn.nl` to the two Cloudflare nameservers you're given. Turn off TransIP DNSSEC first.
-3. Once the domain is active in Cloudflare: Workers & Pages → `en-de-goedemorgen` → Settings → Domains & Routes → Add → Custom domain → `popijn.nl` (and `www.popijn.nl` if you want it).
+3. Once the domain is active in Cloudflare: Workers & Pages → `popijn-nl` → Settings → Domains & Routes → Add → Custom domain → `popijn.nl` (and `www.popijn.nl` if you want it).

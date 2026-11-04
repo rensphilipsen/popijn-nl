@@ -1,5 +1,5 @@
 {
-  "name": "en-de-goedemorgen",
+  "name": "popijn-nl",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",

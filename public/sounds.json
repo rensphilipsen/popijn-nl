@@ -2,5 +2,7 @@
   { "label": "Ksst", "file": "ksst.mp3" },
   { "label": "Kattenkwaad", "file": "kattenkwaad.mp3" },
   { "label": "Kattenstraat", "file": "kattenstraat.mp3" },
-  { "label": "Kattig vandaag", "file": "kattig_vandaag.mp3" }
+  { "label": "Kattig vandaag", "file": "kattig_vandaag.mp3" },
+  { "label": "Heels", "file": "heels.mp3" },
+  { "label": "Drill", "file": "drill.mp3" }
 ]
