@@ -11,7 +11,7 @@
     ]
   },
   {
-    "category": "Office",
+    "category": "Normale dag op kantoor",
     "sounds": [
       { "label": "Heels", "file": "heels.mp3" },
       { "label": "Drill", "file": "drill.mp3" }
