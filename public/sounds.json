@@ -14,7 +14,9 @@
     "category": "Normale dag op kantoor",
     "sounds": [
       { "label": "Heels", "file": "heels.mp3" },
-      { "label": "Drill", "file": "drill.mp3" }
+      { "label": "Drill", "file": "drill.mp3" },
+      { "label": "Zagen", "file": "zagen.mp3" },
+      { "label": "Quooker", "file": "quooker.mp3" }
     ]
   }
 ]
