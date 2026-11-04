@@ -6,7 +6,8 @@
       { "label": "Kattenkwaad", "file": "kattenkwaad.mp3" },
       { "label": "Kattenstraat", "file": "kattenstraat.mp3" },
       { "label": "Kattig vandaag", "file": "kattig_vandaag.mp3" },
-      { "label": "Ik doe de deur dicht", "file": "ikdoededeurdicht.mp3" }
+      { "label": "Ik doe de deur dicht", "file": "ikdoededeurdicht.mp3" },
+      { "label": "Miauw", "file": "miauw.mp3" }
     ]
   },
   {
