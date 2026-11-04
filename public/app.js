@@ -59,12 +59,11 @@ function buildBoard() {
       const button = document.createElement("button");
       button.className = "sound";
       button.type = "button";
-      const emoji = document.createElement("span");
-      emoji.className = "emoji";
-      emoji.textContent = sound.emoji || "🔊";
       const label = document.createElement("span");
+      label.className = "wordart";
+      label.dataset.text = sound.label;
       label.textContent = sound.label;
-      button.append(emoji, label);
+      button.append(label);
       button.addEventListener("click", () => play(sound, button));
       return button;
     })
@@ -75,7 +74,8 @@ function render() {
   const open = isTriggerThursday();
   board.hidden = !open;
   closed.hidden = open;
-  status.textContent = open ? "🔥 Het is Trigger Thursday! 🔥" : "";
+  status.textContent = open ? "Het is Trigger Thursday!" : "";
+  status.dataset.text = status.textContent;
   if (!open) countdown.textContent = timeUntilThursday();
 }
 

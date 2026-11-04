@@ -7,7 +7,7 @@ Trigger Thursday soundboard for [popijn.nl](https://popijn.nl). It only works on
 1. Put the `.mp3` in `public/sounds/`.
 2. Add an entry to `public/sounds.json`:
    ```json
-   { "label": "Naam", "file": "bestand.mp3", "emoji": "🐈" }
+   { "label": "Naam", "file": "bestand.mp3" }
    ```
 
 ## Local development
