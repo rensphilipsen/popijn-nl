@@ -1,0 +1,90 @@
+const TIMEZONE = "Europe/Amsterdam";
+const THURSDAY = 4;
+
+const board = document.getElementById("board");
+const closed = document.getElementById("closed");
+const status = document.getElementById("status");
+const countdown = document.getElementById("countdown");
+
+let sounds = [];
+let current = null;
+
+// Day/time in Amsterdam regardless of the visitor's own timezone.
+function amsterdamNow() {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: TIMEZONE,
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
+      hourCycle: "h23",
+    }).formatToParts(new Date()).map((p) => [p.type, p.value])
+  );
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return { day: days.indexOf(parts.weekday), hour: +parts.hour, minute: +parts.minute };
+}
+
+function isTriggerThursday() {
+  const params = new URLSearchParams(location.search);
+  if (location.hostname === "localhost" && params.has("force")) return true;
+  return amsterdamNow().day === THURSDAY;
+}
+
+function timeUntilThursday() {
+  const { day, hour, minute } = amsterdamNow();
+  const daysLeft = (THURSDAY - day + 7) % 7;
+  const totalMinutes = daysLeft * 24 * 60 - (hour * 60 + minute);
+  const d = Math.floor(totalMinutes / 1440);
+  const h = Math.floor((totalMinutes % 1440) / 60);
+  const m = totalMinutes % 60;
+  return `Nog ${d} dag${d === 1 ? "" : "en"}, ${h} uur en ${m} minuten te gaan.`;
+}
+
+function play(sound, button) {
+  if (!isTriggerThursday()) return render();
+  if (current) {
+    current.audio.pause();
+    current.button.classList.remove("playing");
+  }
+  const audio = new Audio(`/sounds/${sound.file}`);
+  current = { audio, button };
+  button.classList.add("playing");
+  audio.addEventListener("ended", () => button.classList.remove("playing"));
+  audio.play().catch(() => button.classList.remove("playing"));
+}
+
+function buildBoard() {
+  board.replaceChildren(
+    ...sounds.map((sound) => {
+      const button = document.createElement("button");
+      button.className = "sound";
+      button.type = "button";
+      const emoji = document.createElement("span");
+      emoji.className = "emoji";
+      emoji.textContent = sound.emoji || "🔊";
+      const label = document.createElement("span");
+      label.textContent = sound.label;
+      button.append(emoji, label);
+      button.addEventListener("click", () => play(sound, button));
+      return button;
+    })
+  );
+}
+
+function render() {
+  const open = isTriggerThursday();
+  board.hidden = !open;
+  closed.hidden = open;
+  status.textContent = open ? "🔥 Het is Trigger Thursday! 🔥" : "";
+  if (!open) countdown.textContent = timeUntilThursday();
+}
+
+async function init() {
+  const res = await fetch("/sounds.json", { cache: "no-cache" });
+  sounds = await res.json();
+  buildBoard();
+  render();
+  setInterval(render, 30_000);
+}
+
+init();
