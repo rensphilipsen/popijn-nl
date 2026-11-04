@@ -103,6 +103,24 @@ h1 {
 .status:empty { display: none; }
 
 .board {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.category h2 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  transform: rotate(-2deg) skewX(-10deg);
+}
+
+.category:nth-child(2n) h2 {
+  --fill: linear-gradient(180deg, #ffe3ff 0%, #ff66e0 45%, #c400a0 80%, #5c0050 100%);
+  --depth: #33002b;
+  transform: rotate(2deg) skewX(10deg);
+}
+
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 1.5rem;

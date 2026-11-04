@@ -6,7 +6,7 @@ const closed = document.getElementById("closed");
 const status = document.getElementById("status");
 const countdown = document.getElementById("countdown");
 
-let sounds = [];
+let categories = [];
 let current = null;
 
 // Day/time in Amsterdam regardless of the visitor's own timezone.
@@ -53,19 +53,33 @@ function play(sound, button) {
   audio.play().catch(() => button.classList.remove("playing"));
 }
 
+function wordart(tag, text, className = "") {
+  const el = document.createElement(tag);
+  el.className = `wordart ${className}`.trim();
+  el.dataset.text = text;
+  el.textContent = text;
+  return el;
+}
+
+function buildButton(sound) {
+  const button = document.createElement("button");
+  button.className = "sound";
+  button.type = "button";
+  button.append(wordart("span", sound.label));
+  button.addEventListener("click", () => play(sound, button));
+  return button;
+}
+
 function buildBoard() {
   board.replaceChildren(
-    ...sounds.map((sound) => {
-      const button = document.createElement("button");
-      button.className = "sound";
-      button.type = "button";
-      const label = document.createElement("span");
-      label.className = "wordart";
-      label.dataset.text = sound.label;
-      label.textContent = sound.label;
-      button.append(label);
-      button.addEventListener("click", () => play(sound, button));
-      return button;
+    ...categories.map(({ category, sounds }) => {
+      const section = document.createElement("section");
+      section.className = "category";
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      grid.append(...sounds.map(buildButton));
+      section.append(wordart("h2", category, "ocean"), grid);
+      return section;
     })
   );
 }
@@ -81,7 +95,7 @@ function render() {
 
 async function init() {
   const res = await fetch("/sounds.json", { cache: "no-cache" });
-  sounds = await res.json();
+  categories = await res.json();
   buildBoard();
   render();
   setInterval(render, 30_000);

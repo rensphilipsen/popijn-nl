@@ -5,10 +5,11 @@ Trigger Thursday soundboard for [popijn.nl](https://popijn.nl). It only works on
 ## Adding a sound
 
 1. Put the `.mp3` in `public/sounds/`.
-2. Add an entry to `public/sounds.json`:
+2. Add an entry to the `sounds` list of the right category in `public/sounds.json`:
    ```json
    { "label": "Naam", "file": "bestand.mp3" }
    ```
+   For a new category, add `{ "category": "Naam", "sounds": [ ... ] }`.
 
 ## Local development
 
