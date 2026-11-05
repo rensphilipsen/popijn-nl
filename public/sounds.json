@@ -16,7 +16,11 @@
       { "label": "Heels", "file": "heels.mp3" },
       { "label": "Drill", "file": "drill.mp3" },
       { "label": "Zagen", "file": "zagen.mp3" },
-      { "label": "Quooker", "file": "quooker.mp3" }
+      { "label": "Quooker", "file": "quooker.mp3" },
+      { "label": "Alarm", "file": "alarm.mp3" },
+      { "label": "Blikje", "file": "blikje.mp3" },
+      { "label": "Gymzaal", "file": "gymzaal.mp3" },
+      { "label": "Vallende pijp", "file": "vallende-pijp.mp3" }
     ]
   }
 ]

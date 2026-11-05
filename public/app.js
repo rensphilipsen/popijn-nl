@@ -7,7 +7,7 @@ const status = document.getElementById("status");
 const countdown = document.getElementById("countdown");
 
 let categories = [];
-let current = null;
+const activePlays = new WeakMap();
 
 // Day/time in Amsterdam regardless of the visitor's own timezone.
 function amsterdamNow() {
@@ -42,15 +42,27 @@ function timeUntilThursday() {
 
 function play(sound, button) {
   if (!isTriggerThursday()) return render();
-  if (current) {
-    current.audio.pause();
-    current.button.classList.remove("playing");
-  }
   const audio = new Audio(`/sounds/${sound.file}`);
-  current = { audio, button };
+  activePlays.set(button, (activePlays.get(button) || 0) + 1);
   button.classList.add("playing");
-  audio.addEventListener("ended", () => button.classList.remove("playing"));
-  audio.play().catch(() => button.classList.remove("playing"));
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    const remaining = activePlays.get(button) - 1;
+    if (remaining === 0) {
+      activePlays.delete(button);
+      button.classList.remove("playing");
+    } else {
+      activePlays.set(button, remaining);
+    }
+  };
+  audio.addEventListener("ended", finish);
+  audio.addEventListener("error", finish);
+  audio.play().catch((error) => {
+    finish();
+    console.error(`Could not play sound: ${sound.file}`, error);
+  });
 }
 
 function wordart(tag, text, className = "") {
